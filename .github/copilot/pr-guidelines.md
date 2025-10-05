@@ -28,9 +28,11 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
 - Seguir as convenções de nomenclatura do C#
   - PascalCase para classes, métodos e propriedades
   - camelCase para variáveis locais e parâmetros
-  - _camelCase para campos privados
+  - Todos os campos de classe (privados ou não) devem iniciar com `_` e usar camelCase (ex.: `_totalParticipantes`)
+  - O código não pode ter comentários
 - Usar var apenas quando o tipo é óbvio pelo contexto
-- Evitar métodos com mais de 20 linhas
+- Métodos devem ter no máximo 5 linhas de código útil; extraia métodos auxiliares sempre que necessário
+- Não pode ter acesso ao banco direto dos controllers.
 - Manter classes com responsabilidade única
 - Usar injeção de dependência apropriadamente
 
