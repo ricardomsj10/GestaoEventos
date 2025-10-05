@@ -79,7 +79,6 @@ namespace GerenciamentoEventosHoteis.Controllers
             return View(auditoria);
         }
 
-        // GET: Auditorias/Edit/10
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
