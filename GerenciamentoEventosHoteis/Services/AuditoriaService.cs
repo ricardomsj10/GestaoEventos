@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using GerenciamentoEventosHoteis.Data;
 using GerenciamentoEventosHoteis.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GerenciamentoEventosHoteis.Services
 {
     public interface IAuditoriaService
     {
         Task<Auditoria> CreateAsync(Auditoria auditoria);
-        Task<Auditoria> UpdateAsync(Auditoria auditoria);
     }
 
     public class AuditoriaService : IAuditoriaService
@@ -29,15 +26,6 @@ namespace GerenciamentoEventosHoteis.Services
             _context.Auditorias.Add(auditoria);
             await _context.SaveChangesAsync();
             return auditoria;
-        }
-
-        public async Task<Entity> UpdateAsync(Entity entity)
-        {
-            Validate(entity);
-            var existing = await Load(entity.Id);
-            ApplyChanges(existing, entity);
-            await _context.SaveChangesAsync();
-            return existing;
         }
 
         private static void ValidateAuditoria(Auditoria auditoria)
@@ -64,27 +52,6 @@ namespace GerenciamentoEventosHoteis.Services
             {
                 throw new ValidationException($"O campo {fieldName} deve ser preenchido.");
             }
-        }
-
-        private async Task<Auditoria> LoadAuditoria(int id)
-        {
-            var existing = await _context.Auditorias.FirstOrDefaultAsync(a => a.Id == id);
-            if (existing == null)
-            {
-                throw new KeyNotFoundException("Auditoria não encontrada.");
-            }
-            return existing;
-        }
-
-        private static void ApplyChanges(Auditoria target, Auditoria source)
-        {
-            target.Usuario = source.Usuario;
-            target.Acao = source.Acao;
-            target.DataHora = source.DataHora;
-            target.Entidade = source.Entidade;
-            target.EntidadeId = source.EntidadeId;
-            target.DadosAnteriores = source.DadosAnteriores;
-            target.DadosNovos = source.DadosNovos;
         }
     }
 }
