@@ -7,6 +7,7 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
 - Verificar se o código segue os princípios SOLID
 - Verificar se foram adicionados testes apropriados para novas funcionalidades
 - Avaliar a cobertura de testes para mudanças em código existente
+- O código não pode ter comentários
 
 ## Segurança
 
@@ -28,7 +29,6 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
   - PascalCase para classes, métodos e propriedades
   - camelCase para variáveis locais e parâmetros
   - Todos os campos de classe (privados ou não) devem iniciar com `_` e usar camelCase (ex.: `_totalParticipantes`)
-  - O código não pode ter comentários
 - Usar var apenas quando o tipo é óbvio pelo contexto
 - Métodos devem ter no máximo 5 linhas de código útil; extraia métodos auxiliares sempre que necessário
 - Não pode ter acesso ao banco direto dos controllers.
@@ -82,10 +82,10 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
 - Garantir que os testes são independentes
 - Verificar se os testes cobrem casos de sucesso e falha
 - Avaliar se os mocks são utilizados apropriadamente
+- Verificar se a alteração nas classes de DomainService estão com teste unitário
 
 ## Qualidade de Código
 
-- Manter a complexidade ciclomática baixa (preferencialmente < 10)
 - Evitar duplicação de código
 - Seguir princípios DRY (Don't Repeat Yourself)
 - Usar padrões de design apropriados
