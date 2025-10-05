@@ -5,7 +5,6 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
 ## Geral
 
 - Verificar se o código segue os princípios SOLID
-- Garantir que o código está bem documentado e com comentários claros quando necessário
 - Verificar se foram adicionados testes apropriados para novas funcionalidades
 - Avaliar a cobertura de testes para mudanças em código existente
 
