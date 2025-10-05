@@ -31,11 +31,11 @@ namespace GerenciamentoEventosHoteis.Services
             return auditoria;
         }
 
-        public async Task<Auditoria> UpdateAsync(Auditoria auditoria)
+        public async Task<Entity> UpdateAsync(Entity entity)
         {
-            ValidateAuditoria(auditoria);
-            var existing = await LoadAuditoria(auditoria.Id);
-            ApplyChanges(existing, auditoria);
+            Validate(entity);
+            var existing = await Load(entity.Id);
+            ApplyChanges(existing, entity);
             await _context.SaveChangesAsync();
             return existing;
         }
