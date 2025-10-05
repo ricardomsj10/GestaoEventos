@@ -1,0 +1,9 @@
+{
+    "review": {
+        "enabled": true,
+        "pullRequests": {
+            "enabled": true,
+            "autoReview": true
+        }
+    }
+}
