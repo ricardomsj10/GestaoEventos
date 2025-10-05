@@ -1,9 +1,21 @@
 {
     "review": {
         "enabled": true,
+        "guidelines": {
+            "path": ".github/copilot/pr-guidelines.md"
+        },
         "pullRequests": {
             "enabled": true,
-            "autoReview": true
+            "autoReview": true,
+            "summaryLength": "detailed",
+            "checkConventionalCommits": true,
+            "categories": [
+                "security",
+                "performance",
+                "maintainability",
+                "tests",
+                "documentation"
+            ]
         }
     }
 }

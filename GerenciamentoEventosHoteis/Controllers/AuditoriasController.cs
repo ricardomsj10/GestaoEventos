@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GerenciamentoEventosHoteis.Data;
 using GerenciamentoEventosHoteis.Models;
-
+using GerenciamentoEventosHoteis.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace GerenciamentoEventosHoteis.Controllers
 {
@@ -16,10 +17,12 @@ namespace GerenciamentoEventosHoteis.Controllers
     public class AuditoriasController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IAuditoriaService _auditoriaService;
 
-        public AuditoriasController(ApplicationDbContext context)
+        public AuditoriasController(ApplicationDbContext context, IAuditoriaService auditoriaService)
         {
             _context = context;
+            _auditoriaService = auditoriaService;
         }
 
         // GET: Auditorias
@@ -59,11 +62,19 @@ namespace GerenciamentoEventosHoteis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Usuario,Acao,DataHora,Entidade,EntidadeId,DadosAnteriores,DadosNovos")] Auditoria auditoria)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(auditoria);
-                await _context.SaveChangesAsync();
+                return View(auditoria);
+            }
+
+            try
+            {
+                await _auditoriaService.CreateAsync(auditoria);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
             }
             return View(auditoria);
         }
