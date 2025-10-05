@@ -8,8 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GerenciamentoEventosHoteis.Data;
 using GerenciamentoEventosHoteis.Models;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace GerenciamentoEventosHoteis.Controllers
 {
+    [Authorize]
     public class PagamentosController : Controller
     {
         private readonly ApplicationDbContext _context;
