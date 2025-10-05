@@ -82,7 +82,7 @@ Este documento define as diretrizes que o GitHub Copilot deve seguir ao revisar 
 - Garantir que os testes são independentes
 - Verificar se os testes cobrem casos de sucesso e falha
 - Avaliar se os mocks são utilizados apropriadamente
-- Verificar se a alteração nas classes de DomainService estão com teste unitário
+- As classes que estão na pasta Services devem ter teste unitário
 
 ## Qualidade de Código
 

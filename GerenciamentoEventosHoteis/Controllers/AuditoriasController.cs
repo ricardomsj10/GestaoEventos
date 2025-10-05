@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,7 @@ using GerenciamentoEventosHoteis.Models;
 using GerenciamentoEventosHoteis.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace GerenciamentoEventosHoteis.Controllers
 {
@@ -106,25 +106,31 @@ namespace GerenciamentoEventosHoteis.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(auditoria);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AuditoriaExists(auditoria.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return View(auditoria);
+            }
+
+            try
+            {
+                await _auditoriaService.UpdateAsync(auditoria);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AuditoriaExists(auditoria.Id))
+                {
+                    return NotFound();
+                }
+                throw;
             }
             return View(auditoria);
         }
