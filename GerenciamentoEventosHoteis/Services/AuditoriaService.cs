@@ -48,11 +48,10 @@ namespace GerenciamentoEventosHoteis.Services
 
         private static void EnsureFilled(string value, string fieldName)
         {
-            if (!string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
-                return;
+                throw new ValidationException($"O campo {fieldName} deve ser preenchido.");
             }
-            throw new ValidationException($"O campo {fieldName} deve ser preenchido.");
         }
     }
 }
